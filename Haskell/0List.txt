@@ -1,0 +1,35 @@
+Prelude> x = [1,2,3]
+Prelude> y = [1,3..8]
+Prelude> show y
+"[1,3,5,7]"
+Prelude> z = x++y
+Prelude> show z
+"[1,2,3,1,3,5,7]"
+Prelude> take 2 z
+[1,2]
+Prelude> head z
+1
+Prelude> tail z
+[2,3,1,3,5,7]
+Prelude> init z
+[1,2,3,1,3,5]
+Prelude> last z
+7
+Prelude> f x y = x + 2*y
+Prelude> g = f 3
+Prelude> :t g
+g :: Num a => a -> a
+Prelude> :i g
+g :: Num a => a -> a 	-- Defined at <interactive>:95:1
+
+Prelude> g 2
+7
+Prelude> :show bindings
+x :: Num a => [a] = _
+y :: (Num a, Enum a) => [a] = _
+z :: (Num a, Enum a) => [a] = _
+f :: Num a => a -> a -> a = _
+$trModule :: GHC.Types.Module = _
+g :: Num a => a -> a = _
+it :: Num a => a = _
+Prelude> 
