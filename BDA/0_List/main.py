@@ -1,14 +1,14 @@
 huuugeList=[]
-with open('C:/Users/Michał/Desktop/BDA-2Semester/BDA/0_List/GoneWithTheWInd.txt') as f:
+with open('GoneWithTheWInd.txt') as f:
     huuugeList=f.read().split()
     [word.lower() for word in huuugeList]
 
 import re
 Text=' '.join(huuugeList)
-regex=r"([0-9A-Za-z'\d]+)[\s.\":,;]"
+regex=r"([0-9A-Za-z'\d]+)[\s.\":,!;]"
 m=re.findall(regex, Text)
 m=[word.lower() for word in m]
-with open('C:/Users/Michał/Desktop/BDA-2Semester/BDA/0_List/stopwords_en.txt') as f:
+with open('stopwords_en.txt') as f:
     stopwords=f.read().split()
     [word.lower() for word in stopwords]
 
@@ -35,7 +35,7 @@ while (len(Dict)>200):
     i+=1
 
 print (Dict)
-f=open('C:/Users/Michał/Desktop/BDA-2Semester/BDA/0_List/listofwords.txt', "w")
+f=open('listofwords.txt', "w")
 for i in Dict:
     for j in range(0, Dict[i]):
         f.write(i + '\n')
