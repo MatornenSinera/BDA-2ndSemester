@@ -75,3 +75,4 @@ for Name, num in zip(ListOfChapterNames, range(10)):
 	NewDict=sorted(DictOfTFIDF.items(), key=lambda kv:kv[1][num], reverse=True)
 	for i in range(10):
 		f.write(str(NewDict[i])+'\n')
+print('Got There')

@@ -1,0 +1,10 @@
+alice 448 
+time 124 
+queen 100 
+thought 97 
+began 96 
+king 93 
+ll 90 
+hatter 86 
+gryphon 85 
+thing 77 
