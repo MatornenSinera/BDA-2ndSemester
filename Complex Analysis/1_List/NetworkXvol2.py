@@ -45,16 +45,16 @@ for index, rows in CS.iterrows():
 		for i in List:
 			for j in i:
 				if j!=rows[3] and j not in DictionaryOfEdges[Key]:
-					DictionaryOfEdges[Key]
+					DictionaryOfEdges[Key].append(j)
 	Nodes.append(Key)
 
 #print(DictionaryOfNames)
-print(DictionaryOfEdges)
+#print(DictionaryOfEdges)
 Edges=[]
 for i in DictionaryOfEdges:
-	print(i)
+	#print(i)
 	for j in DictionaryOfEdges[i]:
-		print(i, j)
+		#print(i, j)
 		if j in DictionaryOfNames:
 			Edges.append((i, DictionaryOfNames[j]))
 
@@ -64,6 +64,9 @@ G=nx.Graph()
 
 G.add_nodes_from(Nodes)
 G.add_edges_from(Edges)
+
+for i in Edges:
+	print(i)
 
 nx.draw_circular(G, node_color='grey',  font_size=12, alpha=0.5, with_labels=True, arrows=True)
 A=nx.nx_pydot.to_pydot(G)

@@ -1,6 +1,5 @@
-import os
-print(os.name)
 import matplotlib.pyplot as plt
+import numpy
 
 huuugeList=[]
 with open('Alice In Wonderland.txt', encoding='utf8') as f:
@@ -12,7 +11,7 @@ Text=' '.join(huuugeList)
 regex=r"([0-9A-Za-z'\d]+)[\s.\":,!;]"
 m=re.findall(regex, Text)
 m=[word.lower() for word in m]
-print(len(m))
+#print(len(m))
 
 
 
@@ -38,6 +37,10 @@ for i in range(len(Dict)):
 
 plt.plot(RankDictX, RankDictY)
 plt.show()
+plt.plot(RankDictX, RankDictY)
+plt.yscale('log')
+plt.xscale('log')
+plt.show()
 
-
+print(numpy.polyfit(RankDictX, numpy.log(RankDictY), 1))
 
