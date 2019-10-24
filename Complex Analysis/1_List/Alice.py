@@ -11,10 +11,9 @@ Text=' '.join(huuugeList)
 regex=r"([0-9A-Za-z'\d]+)[\s.\":,!;]"
 m=re.findall(regex, Text)
 m=[word.lower() for word in m]
-#print(len(m))
 
 
-
+### Find all words that end with space or special characters.
 
 Dict={}
 for i in m:
@@ -22,18 +21,15 @@ for i in m:
         Dict[i]+=1
     else:
         Dict[i]=1
-    #print(i)
-
-#print (Dict['alice'])
-#print (Dict)
+###For every word - create a indicator of frequency
 
 Dict=sorted(Dict.items(),key = lambda kv: kv[1], reverse=True)
-#print (Dict)
-
 RankDictX=[i for i in range(1,len(Dict)+1)]
 RankDictY=[]
 for i in range(len(Dict)):
 	RankDictY.append(Dict[i][1])
+
+###Create data for both axis of the plot
 
 plt.plot(RankDictX, RankDictY)
 plt.show()
@@ -46,6 +42,7 @@ plt.yscale('log')
 plt.xscale('log')
 plt.show()
 
+###Create plot, then fit a line of log-log plot.
 
 
 
