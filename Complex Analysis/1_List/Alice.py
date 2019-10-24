@@ -38,9 +38,14 @@ for i in range(len(Dict)):
 plt.plot(RankDictX, RankDictY)
 plt.show()
 plt.plot(RankDictX, RankDictY)
+coefs=numpy.polyfit(numpy.log10(RankDictX), numpy.log10(RankDictY), 1)
+print(coefs)
+RankDictYReg=[10**(numpy.log10(x)*coefs[0]+coefs[1]) for x in RankDictX]
+plt.plot(RankDictX, RankDictYReg)
 plt.yscale('log')
 plt.xscale('log')
 plt.show()
 
-print(numpy.polyfit(RankDictX, numpy.log(RankDictY), 1))
+
+
 

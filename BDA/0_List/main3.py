@@ -1,6 +1,17 @@
 import math
 
 
+def TFIDFReturn(Word, LibraryOfTFIDF, ListOfChapterNames):
+	print (Word)
+	if Word in LibraryOfTFIDF:
+		print(LibraryOfTFIDF[Word])
+		Lib={}
+		for name,score in zip(ListOfChapterNames, LibraryOfTFIDF[Word]):
+			Lib[name]=score
+		print(sorted(Lib.items(), key=lambda x: x[1], reverse=True))
+	else:
+		print("Nada")
+
 def TFIDF(Word, Chapters, Sums):
 	TFIDF=[0 for i in Chapters]
 	IDF_Sum=0
@@ -75,4 +86,9 @@ for Name, num in zip(ListOfChapterNames, range(10)):
 	NewDict=sorted(DictOfTFIDF.items(), key=lambda kv:kv[1][num], reverse=True)
 	for i in range(10):
 		f.write(str(NewDict[i])+'\n')
-print('Got There')
+print('Your Word?')
+
+
+word=input()
+#print(word)
+TFIDFReturn(word, DictOfTFIDF, ListOfChapterNames)
