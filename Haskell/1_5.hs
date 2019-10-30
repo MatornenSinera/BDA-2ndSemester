@@ -1,0 +1,1 @@
+splits myList = [[(take n myList), (drop n myList)] | n <-[0..length $ myList]] 
