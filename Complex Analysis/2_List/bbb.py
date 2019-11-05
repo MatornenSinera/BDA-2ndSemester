@@ -20,6 +20,9 @@ d2=np.asarray(d)
 bfit=np.polyfit(d2, b2, 1)
 b2fit=[bfit[0]*i+bfit[1] for i in d]
 
-plt.plot(d, b2, d, a, d, b2fit)
+plt.plot(d, b2, d, b2fit, d, a)
+plt.legend(["Diameter of graph", "Fitted diameter of graph - linear regression", "Average path length"])
+plt.xlabel("Ln(N)/Ln(<k>)")
 plt.show()
+
 print(bfit)

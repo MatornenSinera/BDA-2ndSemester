@@ -1,0 +1,43 @@
+ErdosRewyi
+<k> = 7.954
+1000
+Average Clustering: 0.006093040293040288
+Edges: 4000
+Diameter: 7
+Average path length: 4.56594
+Gilbert
+<k> = 8.03
+1000
+Average Clustering: 0.00806281839075956
+Edges: 4015
+Diameter: 7
+Average path length: 4.540764447365837
+WaltzStogatz - 0.01
+<k> = 8.0
+1000
+Average Clustering: 0.6208214285714292
+Edges: 4000
+Diameter: 24
+Average path length: 11.751844
+WaltzStogatz - 0.33
+<k> = 8.0
+1000
+Average Clustering: 0.19887520257520291
+Edges: 4000
+Diameter: 7
+Average path length: 4.91346
+WaltzStogatz - 0.66
+<k> = 8.0
+1000
+Average Clustering: 0.034208760683760775
+Edges: 4000
+Diameter: 7
+Average path length: 4.600792
+WaltzStogatz - 1
+<k> = 8.0
+1000
+Average Clustering: 0.008351190476190465
+Edges: 4000
+Diameter: 7
+Average path length: 4.557326
+[Finished in 130.2s]

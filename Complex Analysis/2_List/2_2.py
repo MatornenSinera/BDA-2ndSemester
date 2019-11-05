@@ -98,5 +98,7 @@ for i in samples:
 			flag=0
 
 plt.plot(samples, Clusters, samples, Distances)
+plt.legend(["D(x)/d0", "C(x)/C0"])
 plt.xscale('log')
 plt.show()
+

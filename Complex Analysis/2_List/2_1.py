@@ -88,7 +88,7 @@ def Clustering(Result):
 	G.add_nodes_from(Nodes)
 	G.add_edges_from(Edges)
 	nx.draw_circular(G, node_color='grey',  font_size=12, alpha=0.5, with_labels=True, arrows=True)
-	print('Clustering: '+str(nx.clustering(G)))
+	#print('Clustering: '+str(nx.clustering(G)))
 	print('Average Clustering: '+str(nx.average_clustering(G)))
 
 def Draw2(Result):
@@ -127,35 +127,68 @@ def ShortestPaths(Result):
 	G=nx.Graph()
 	G.add_nodes_from(Nodes)
 	G.add_edges_from(Edges)
-	print('ShortestPaths: ')
-	[print(n) for n in nx.all_pairs_shortest_path(G)]
-	print('Diameter: '+str(nx.diameter(G)))
-	print('Average path length: '+str(nx.average_shortest_path_length(G)))
+	print("Edges: "+str(len(Edges)))
+	#print('ShortestPaths: ')
+	#[print(n) for n in nx.all_pairs_shortest_path(G)]
+	b=nx.shortest_path(G)
+	sumpath=0
+	lenpath=0
+	maxpath=0
+	for a1 in b:
+		for a2 in b[a1]:
+			if len(b[a1][a2])>maxpath:
+				maxpath=len(b[a1][a2])
+			sumpath+=len(b[a1][a2])
+			lenpath+=1
+	print('Diameter: '+str(maxpath))
+	print('Average path length: '+str(sumpath/lenpath))
 	
 
 
-
-Result=ErdosRewyi(10, 15)
+print("ErdosRewyi")
+Result=ErdosRewyi(1000, 4000)
 Draw1(Result)
 Clustering(Result)
 ShortestPaths(Result)
 Draw2(Result)
 
-
+print("Gilbert")
 #print(len(Result[1]))
-Result=Gilbert(10, 0.66)
+Result=Gilbert(1000, 0.0082)
 Draw1(Result)
 Clustering(Result)
 ShortestPaths(Result)
 Draw2(Result)
 
+print("WaltzStogatz - 0.01")
 #print(len(Result[1]))
+Result=WaltzStogatz(1000, 8, 0.01)
+Draw1(Result)
+Clustering(Result)
+ShortestPaths(Result)
+Draw2(Result)
 
+print("WaltzStogatz - 0.33")
+#print(len(Result[1]))
+Result=WaltzStogatz(1000, 8, 0.33)
 Draw1(Result)
 Clustering(Result)
 ShortestPaths(Result)
 Draw2(Result)
 #print(len(Result[1]))
+print("WaltzStogatz - 0.66")
+Result=WaltzStogatz(1000, 8, 0.66)
+Draw1(Result)
+Clustering(Result)
+ShortestPaths(Result)
+Draw2(Result)
+
+print("WaltzStogatz - 1")
+Result=WaltzStogatz(1000, 8, 1)
+Draw1(Result)
+Clustering(Result)
+ShortestPaths(Result)
+Draw2(Result)
 
 
 

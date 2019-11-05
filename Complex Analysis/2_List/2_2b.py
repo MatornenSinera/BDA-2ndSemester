@@ -66,7 +66,7 @@ ks=[]
 d1=[]
 d2=[]
 another=[]
-samples=np.linspace(100, 4000, num=20)
+samples=np.linspace(100, 4000, num=30)
 samples=[round(i) for i in samples]
 for i in samples:
 	sumpath=0
@@ -101,5 +101,7 @@ d3=[coefs[0]*i+coefs[1] for i in another]
 plt.plot(samples, d1, samples, d2, samples, d3)
 plt.xscale('log')
 plt.show()
-plt.plot(another, d1, another, d2, another, d3)
+plt.plot(another, d1, another, d3, another, d2)
+plt.legend(["Diameter of graph", "Fitted diameter of graph - linear regression", "Average path length"])
+plt.xlabel("Ln(N)/Ln(<k>)")
 plt.show()
