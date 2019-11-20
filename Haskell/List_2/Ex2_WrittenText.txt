@@ -1,3 +1,0 @@
-Ex2_WrittenText
-
-(\x -> \y -> x + 2y)(x+2y)

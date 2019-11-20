@@ -1,14 +1,8 @@
-{-# LANGUAGE FlexibleContexts #-}
-prime list = modest list [] 0
- where
-  modest [] ys a = a
-  modest xs ys a = foldr (\z zs -> if divis z == 1 then (+ 1) ys else ( +0 ) ys) a xs 
+calculatePrimes list = (length $ filter (isPrime) list)
 
-divis s = diiv s sqrt' . s [0]
- where
- diiv s 0 [x] = x  
- diiv s d xs
-  | s `mod` d == 0 = diiv s d-1 [xs+1]
-  | otherwise = diiv s d-1 [xs]
+isPrime n = if f n == 2 then True else False
+     where f n = foldl (\count x -> if n `mod` x == 0 then count + 1 else count) 0 [1..n]
 
-sqrt' s = floor . sqrt . s
+-- calculatePrimes substitutes every number from the list into a binary value, depending on whether the number is prime
+-- isPrime checks if for every x, amount of divisors from 1 to x is equal to 2. 
+-- borderline examples (0, 1) are not included when checked for with function isPrime
