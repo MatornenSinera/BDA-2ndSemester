@@ -59,8 +59,6 @@ i=99
 
 for GraphFamily, k in zip(GeneratedBarabasi, K):
     i+=1
-    start=time.time()
-    print(i)
     
     plt.figure(i)
     for G in GraphFamily:
@@ -87,14 +85,11 @@ for GraphFamily, k in zip(GeneratedBarabasi, K):
     plt.legend([str(i) for i in Sizes])
     plt.xlabel('Fraction of randomly deleted nodes.')
     plt.ylabel('P∞(f)/P∞(0)')
-    print(time.time() - start)
     plt.savefig(str(i)+'.png')
  
 
 for GraphFamily, k in zip (GeneratedGilbert, K):
     i+=1
-    start=time.time()
-    print(i)
     plt.figure(i)
     for G in GraphFamily:
         giant = max(nx.connected_component_subgraphs(G), key=len)
@@ -111,14 +106,11 @@ for GraphFamily, k in zip (GeneratedGilbert, K):
     plt.legend([str(i) for i in Sizes])
     plt.xlabel('Fraction of randomly deleted nodes.')
     plt.ylabel('P∞(f)/P∞(0)')
-    print(time.time() - start)
     plt.savefig(str(i)+'.png')
 
 
 for GraphFamily, k in zip (GeneratedWatts, K):
     i+=1
-    start=time.time()
-    print(i)
     plt.figure(i)
     for G in GraphFamily:
         giant = max(nx.connected_component_subgraphs(G), key=len)
@@ -135,13 +127,10 @@ for GraphFamily, k in zip (GeneratedWatts, K):
     plt.legend([str(i) for i in Sizes])
     plt.xlabel('Fraction of randomly deleted nodes.')
     plt.ylabel('P∞(f)/P∞(0)')
-    print(time.time() - start)
     plt.savefig(str(i)+'.png')
 
 for GraphFamily, k in zip(GeneratedBarabasi, K):
     i+=1
-    start=time.time()
-    print(i)
     
     plt.figure(i)
     for G in GraphFamily:
@@ -159,14 +148,11 @@ for GraphFamily, k in zip(GeneratedBarabasi, K):
     plt.legend([str(i) for i in Sizes])
     plt.xlabel('Fraction of randomly deleted nodes.')
     plt.ylabel('P∞(f)/P∞(0)')
-    print(time.time() - start)
     plt.savefig(str(i)+'.png')
  
 
 for GraphFamily, k in zip (GeneratedGilbert, K):
     i+=1
-    start=time.time()
-    print(i)
     plt.figure(i)
     for G in GraphFamily:
         giant = max(nx.connected_component_subgraphs(G), key=len)
@@ -183,13 +169,10 @@ for GraphFamily, k in zip (GeneratedGilbert, K):
     plt.legend([str(i) for i in Sizes])
     plt.xlabel('Fraction of randomly deleted nodes.')
     plt.ylabel('P∞(f)/P∞(0)')
-    print(time.time() - start)
     plt.savefig(str(i)+'.png')
 
 for GraphFamily, k in zip (GeneratedWatts, K):
     i+=1
-    start=time.time()
-    print(i)
     plt.figure(i)
     for G in GraphFamily:
         giant = max(nx.connected_component_subgraphs(G), key=len)
@@ -206,7 +189,6 @@ for GraphFamily, k in zip (GeneratedWatts, K):
     plt.legend([str(i) for i in Sizes])
     plt.xlabel('Fraction of randomly deleted nodes.')
     plt.ylabel('P∞(f)/P∞(0)')
-    print(time.time() - start)
     plt.savefig(str(i)+'.png')
 plt.show()
 
