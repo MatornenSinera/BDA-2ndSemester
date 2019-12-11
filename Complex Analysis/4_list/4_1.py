@@ -37,90 +37,158 @@ def MaxDeletionBetweenness(G, proportion):
     return G
 
 
-Probabilities=[float(x) for x in np.linspace(0.001, 0.98, num=50)]
+f= open("datas.txt","w+")
+
+Probabilities=[float(x) for x in np.linspace(0.001, 0.98, num=20)]
 print(Probabilities)
-K=[4]
-Sizes=[10000]
-GeneratedWatts=[[] for i in range(len(K))]
+K=[5]
+Sizes=10000
+GeneratedWatts=[]
 
-for k, i in zip(K, range(len(K))):
-    for size in Sizes:
-        print("Loading: "+str(k)+" "+str(size))
-        H=nx.read_gml("Watts_"+str(k)+"_"+str(size)+".gml")
-        GeneratedWatts[i].append(H)
+f.write(str(Probabilities))
+f.write('\n')
+for j in range(10):
+    GW=nx.watts_strogatz_graph(Sizes, 5, 0.05)
+    GeneratedWatts.append(GW)
 
-i=20
+i=605
+print(len(GeneratedWatts))
 
-for GraphFamily, k in zip (GeneratedWatts, K):
-    i+=1
-    print(i)
-    plt.figure(i)
-    for G in GraphFamily:
-        giant = max(nx.connected_component_subgraphs(G), key=len)
-        P0=giant.size()
-        Pf=[]
-        print (P0)
-        for prob in Probabilities:
-            print(prob)
-            G2=MaxDeletion(G.copy(), prob)
-            giantreduced=max(nx.connected_component_subgraphs(G2), key=len)
-            P1=giantreduced.size()
-            Pf.append(float(P1/P0))
-        plt.plot(Probabilities, Pf)
-    plt.title('Watts, Max, Degree: <k>='+str(k))
-    plt.legend([str(i) for i in Sizes])
-    plt.xlabel('Fraction of randomly deleted nodes.')
-    plt.ylabel('P∞(f)/P∞(0)')
-    plt.savefig(str(i)+'.png')
+i+=1
+print(i)
+plt.figure(i)
+Pf=[0 for i in Probabilities]
+for G in GeneratedWatts:
+    giant = max(nx.connected_component_subgraphs(G), key=len)
+    P0=giant.size()
+    print (P0)
+    k=0
+    for prob in Probabilities:
+        print(prob)
+        G2=MaxDeletion(G.copy(), prob)
+        giantreduced=max(nx.connected_component_subgraphs(G2), key=len)
+        P1=giantreduced.size()
+        Pf[k]+=float(P1/P0)
+        k+=1
+Pf=[i/10 for i in Pf]
+
+f.write(str(Pf))
+f.write('\n')
+plt.plot(Probabilities, Pf)
+plt.title('Watts, Max, Degree: <k>='+str(5))
+plt.legend([Sizes])
+plt.xlabel('Fraction of randomly deleted nodes.')
+plt.ylabel('P∞(f)/P∞(0)')
+plt.savefig(str(i)+'.png')
+
 
 ##DEGREE CENTRALITY
 
-for GraphFamily, k in zip (GeneratedWatts, K):
-    i+=1
-    print(i)
-    plt.figure(i)
-    for G in GraphFamily:
-        giant = max(nx.connected_component_subgraphs(G), key=len)
-        P0=giant.size()
-        Pf=[]
-        print (P0)
-        for prob in Probabilities:
-            print(prob)
-            G2=MaxDeletionCloseness(G.copy(), prob)
-            giantreduced=max(nx.connected_component_subgraphs(G2), key=len)
-            P1=giantreduced.size()
-            Pf.append(float(P1/P0))
-        plt.plot(Probabilities, Pf)
-    plt.title('Watts, Max, Closeness: <k>='+str(k))
-    plt.legend([str(i) for i in Sizes])
-    plt.xlabel('Fraction of randomly deleted nodes.')
-    plt.ylabel('P∞(f)/P∞(0)')
-    plt.savefig(str(i)+'.png')
+
+i+=1
+print(i)
+plt.figure(i)
+Pf=[0 for i in Probabilities]
+for G in GeneratedWatts:
+    giant = max(nx.connected_component_subgraphs(G), key=len)
+    P0=giant.size()
+    print (P0)
+    k=0
+    for prob in Probabilities:
+        print(prob)
+        G2=MaxDeletionCloseness(G.copy(), prob)
+        giantreduced=max(nx.connected_component_subgraphs(G2), key=len)
+        P1=giantreduced.size()
+        Pf[k]+=float(P1/P0)
+        k+=1
+Pf=[i/10 for i in Pf]
+plt.plot(Probabilities, Pf)
+plt.title('Watts, Max, Closeness: <k>='+str(5))
+plt.legend([Sizes])
+plt.xlabel('Fraction of randomly deleted nodes.')
+plt.ylabel('P∞(f)/P∞(0)')
+plt.savefig(str(i)+'.png')
+f.write(str(Pf))
+
+f.write('\n')
+# for GraphFamily, k in zip (GeneratedWatts, K):
+#     i+=1
+#     print(i)
+#     plt.figure(i)
+#     for G in GraphFamily:
+#         giant = max(nx.connected_component_subgraphs(G), key=len)
+#         P0=giant.size()
+#         Pf=[]
+#         print (P0)
+#         for prob in Probabilities:
+#             print(prob)
+#             G2=MaxDeletionCloseness(G.copy(), prob)
+#             giantreduced=max(nx.connected_component_subgraphs(G2), key=len)
+#             P1=giantreduced.size()
+#             Pf.append(float(P1/P0))
+#         plt.plot(Probabilities, Pf)
+#     plt.title('Watts, Max, Closeness: <k>='+str(k))
+#     plt.legend([str(i) for i in Sizes])
+#     plt.xlabel('Fraction of randomly deleted nodes.')
+#     plt.ylabel('P∞(f)/P∞(0)')
+#     plt.savefig(str(i)+'.png')
 
 ##CLOSENESS CENTRALITY
 
-for GraphFamily, k in zip (GeneratedWatts, K):
-    i+=1
-    print(i)
-    plt.figure(i)
-    for G in GraphFamily:
-        giant = max(nx.connected_component_subgraphs(G), key=len)
-        P0=giant.size()
-        Pf=[]
-        print (P0)
-        for prob in Probabilities:
-            print(prob)
-            G2=MaxDeletionBetweenness(G.copy(), prob)
-            giantreduced=max(nx.connected_component_subgraphs(G2), key=len)
-            P1=giantreduced.size()
-            Pf.append(float(P1/P0))
-        plt.plot(Probabilities, Pf)
-    plt.title('Watts, Max, Betweenness : <k>='+str(k))
-    plt.legend([str(i) for i in Sizes])
-    plt.xlabel('Fraction of randomly deleted nodes.')
-    plt.ylabel('P∞(f)/P∞(0)')
-    plt.savefig(str(i)+'.png')
+i+=1
+print(i)
+plt.figure(i)
+Pf=[0 for i in Probabilities]
+for G in GeneratedWatts:
+    giant = max(nx.connected_component_subgraphs(G), key=len)
+    P0=giant.size()
+    print (P0)
+    k=0
+    for prob in Probabilities:
+        print(prob)
+        G2=MaxDeletionBetweenness(G.copy(), prob)
+        giantreduced=max(nx.connected_component_subgraphs(G2), key=len)
+        P1=giantreduced.size()
+        Pf[k]+=float(P1/P0)
+        k+=1
+Pf=[i/10 for i in Pf]
+plt.plot(Probabilities, Pf)
+plt.title('Watts, Max, Betweenness: <k>='+str(5
+    ))
+
+f.write(str(Pf))
+f.write('\n')
+
+plt.legend([Sizes])
+plt.xlabel('Fraction of randomly deleted nodes.')
+plt.ylabel('P∞(f)/P∞(0)')
+plt.savefig(str(i)+'.png')
+
+
+# for GraphFamily, k in zip (GeneratedWatts, K):
+#     i+=1
+#     print(i)
+#     plt.figure(i)
+#     for G in GraphFamily:
+#         giant = max(nx.connected_component_subgraphs(G), key=len)
+#         P0=giant.size()
+#         Pf=[]
+#         print (P0)
+#         for prob in Probabilities:
+#             print(prob)
+#             G2=MaxDeletionBetweenness(G.copy(), prob)
+#             giantreduced=max(nx.connected_component_subgraphs(G2), key=len)
+#             P1=giantreduced.size()
+#             Pf.append(float(P1/P0))
+#         plt.plot(Probabilities, Pf)
+#     plt.title('Watts, Max, Betweenness : <k>='+str(k))
+#     plt.legend([str(i) for i in Sizes])
+#     plt.xlabel('Fraction of randomly deleted nodes.')
+#     plt.ylabel('P∞(f)/P∞(0)')
+#     plt.savefig(str(i)+'.png')
 
 ##BETWEENNESS CENTRALITY
 
 plt.show()
+
+f.close()

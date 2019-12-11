@@ -52,11 +52,11 @@ def concentration(A):
 	return sum(A[1])/len(A[1])
 
 
-A=CreateModel(2000, 14, 0.5)
+A=CreateModel(10000, 14, 0.5)
 print(A[1])
 ploty=[]
 plotx=[]
-for i in range(2000*200):
+for i in range(1000000):
 	A=ElementarChange(A[0],A[1], A[2], 8, 0)
 	if i%(2000)==0:
 		print(i/2000)
