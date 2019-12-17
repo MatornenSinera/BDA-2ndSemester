@@ -18,18 +18,18 @@ def MaxDeletion(G, proportion):
     G.remove_nodes_from(MaxSample)
     return G
 
-def MaxDeletionCloseness(G, proportion):
+def MaxDeletionCloseness(G, proportion, Sort):
     #print(G.degree)
     #print(nx.closeness_centrality(G))
-    ListOfNodes=sorted(nx.closeness_centrality(G).items(), key=lambda kv:(kv[1], kv[0]), reverse=True)
+    ListOfNodes=Sort
     NumberOfNodes=G.number_of_nodes()
     Sample=round(proportion*NumberOfNodes)
     MaxSample=[x[0] for x in ListOfNodes[:Sample]]
     G.remove_nodes_from(MaxSample)
     return G
 
-def MaxDeletionBetweenness(G, proportion):
-    ListOfNodes=sorted(nx.betweenness_centrality(G).items(), key=lambda kv:(kv[1], kv[0]), reverse=True)
+def MaxDeletionBetweenness(G, proportion, Sort):
+    ListOfNodes=Sort
     NumberOfNodes=G.number_of_nodes()
     Sample=round(proportion*NumberOfNodes)
     MaxSample=[x[0] for x in ListOfNodes[:Sample]]
@@ -37,7 +37,7 @@ def MaxDeletionBetweenness(G, proportion):
     return G
 
 
-f= open("datas.txt","w+")
+f= open("datas28.txt","w+")
 
 Probabilities=[float(x) for x in np.linspace(0.001, 0.98, num=20)]
 print(Probabilities)
@@ -48,10 +48,10 @@ GeneratedWatts=[]
 f.write(str(Probabilities))
 f.write('\n')
 for j in range(10):
-    GW=nx.watts_strogatz_graph(Sizes, 5, 0.05)
+    GW=nx.gnp_random_graph(Sizes, float(5/Sizes))
     GeneratedWatts.append(GW)
 
-i=605
+i=688
 print(len(GeneratedWatts))
 
 i+=1
@@ -75,9 +75,9 @@ Pf=[i/10 for i in Pf]
 f.write(str(Pf))
 f.write('\n')
 plt.plot(Probabilities, Pf)
-plt.title('Watts, Max, Degree: <k>='+str(5))
+plt.title('Barabasi-Albert, Max, Degree: <k>='+str(5))
 plt.legend([Sizes])
-plt.xlabel('Fraction of randomly deleted nodes.')
+plt.xlabel('Fraction of deleted nodes.')
 plt.ylabel('P∞(f)/P∞(0)')
 plt.savefig(str(i)+'.png')
 
@@ -94,18 +94,19 @@ for G in GeneratedWatts:
     P0=giant.size()
     print (P0)
     k=0
+    Sort=sorted(nx.closeness_centrality(G).items(), key=lambda kv:(kv[1], kv[0]), reverse=True)
     for prob in Probabilities:
         print(prob)
-        G2=MaxDeletionCloseness(G.copy(), prob)
+        G2=MaxDeletionCloseness(G.copy(), prob, Sort)
         giantreduced=max(nx.connected_component_subgraphs(G2), key=len)
         P1=giantreduced.size()
         Pf[k]+=float(P1/P0)
         k+=1
 Pf=[i/10 for i in Pf]
 plt.plot(Probabilities, Pf)
-plt.title('Watts, Max, Closeness: <k>='+str(5))
+plt.title('Barabasi-Albert, Max, Closeness: <k>='+str(5))
 plt.legend([Sizes])
-plt.xlabel('Fraction of randomly deleted nodes.')
+plt.xlabel('Fraction of deleted nodes.')
 plt.ylabel('P∞(f)/P∞(0)')
 plt.savefig(str(i)+'.png')
 f.write(str(Pf))
@@ -143,24 +144,24 @@ for G in GeneratedWatts:
     giant = max(nx.connected_component_subgraphs(G), key=len)
     P0=giant.size()
     print (P0)
+    sort=sorted(nx.betweenness_centrality(G).items(), key=lambda kv:(kv[1], kv[0]), reverse=True)
     k=0
     for prob in Probabilities:
         print(prob)
-        G2=MaxDeletionBetweenness(G.copy(), prob)
+        G2=MaxDeletionBetweenness(G.copy(), prob, sort)
         giantreduced=max(nx.connected_component_subgraphs(G2), key=len)
         P1=giantreduced.size()
         Pf[k]+=float(P1/P0)
         k+=1
 Pf=[i/10 for i in Pf]
 plt.plot(Probabilities, Pf)
-plt.title('Watts, Max, Betweenness: <k>='+str(5
-    ))
+plt.title('Barabasi-Albert, Max, Betweenness: <k>='+str(5))
 
 f.write(str(Pf))
 f.write('\n')
 
 plt.legend([Sizes])
-plt.xlabel('Fraction of randomly deleted nodes.')
+plt.xlabel('Fraction of deleted nodes.')
 plt.ylabel('P∞(f)/P∞(0)')
 plt.savefig(str(i)+'.png')
 

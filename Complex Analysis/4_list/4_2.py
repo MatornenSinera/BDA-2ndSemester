@@ -52,7 +52,7 @@ def concentration(A):
 	return sum(A[1])/len(A[1])
 
 
-A=CreateModel(10000, 14, 0.5)
+A=CreateModel(200000, 14, 0.5)
 print(A[1])
 ploty=[]
 plotx=[]
