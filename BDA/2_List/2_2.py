@@ -13,6 +13,7 @@ from nltk.corpus import stopwords
 from operator import add
 import string
 from pyspark.sql import SparkSession
+import pyspark.sql.functions as f
 spark = SparkSession.builder \
     .master("local[*]") \
     .appName("Learning_Spark") \
@@ -31,11 +32,10 @@ dataselect=dataselect.filter(lambda row: row!='')
 #print(dataselect.take(5))
 
 dataIntegers=dataselect.flatMap(lambda line: line.split(', ')).map(lambda integer: (int(integer), 1))
-#print(dataIntegers.take(20))
-dataIntegers=dataIntegers.reduceByKey(lambda a,b : a+b).sortByKey(1, 1)
-print(dataIntegers.map(lambda a: a[0]).take(1))
-print(dataIntegers.sortByKey(0, 1).map(lambda a: a[0]).take(1))
-print(dataIntegers.map(lambda a: a[0]).collect())
-dataAverage=dataselect.flatMap(lambda line: line.split(', ')).map(lambda integ: (1, int(integ))).reduceByKey(lambda x, y: x+y).collect()[0][1]
-dataMean=dataAverage/dataselect.count()
-print(dataMean)
+print(dataIntegers.take(20))
+df=dataIntegers.toDF(["Value", "Amount"])
+agg=df.agg(f.min(df.Value),f.max(df.Value), f.avg(df.Value), f.sum(df.Value), f.countDistinct("Value")).show()
+agg2=df.groupby("Value").count().show()
+#dataIntegers=dataIntegers.reduceByKey(lambda a,b : a+b).sortByKey(1, 1)
+#dataMean=dataAverage/dataselect.count()
+#print(dataMean)
