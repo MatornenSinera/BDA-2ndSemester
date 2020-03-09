@@ -24,14 +24,13 @@ plt.show()
 
 #//BOXPLOTS
 data_box_plots=data_after_1950
-data_box_plots.index=data_box_plots.index.strftime("%B")#.groupby(data_after_1950.index.month).transform
+data_box_plots.index=data_box_plots.index.strftime("%B")
 sns.boxplot(y="data_mean_global", x=data_box_plots.index, data=data_box_plots)
 plt.title("Spread of monthly CO2 concentrations")
 plt.ylabel("Parts per milion (ppm)")
 plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
-#print(data_box_plots)
 
 
 #//BARPLOTS
@@ -52,7 +51,6 @@ plt.show()
 ##PLOT MONTHLY CONCENTRATIONS
 data_after_1950_subplot=data[data.index.year>=1950]
 fix,ax=plt.subplots(2, figsize=(12,10))
-#plt.title("Monthly CO2 concentrations")
 ax[0].plot(data_after_1950_subplot.index, data_after_1950["data_mean_nh"])
 ax[0].set_title("Northern Hemisphere")
 ax[0].set_xlabel("Year")
@@ -67,14 +65,6 @@ plt.show()
 data_northern= data_after_1950_subplot.loc[:,'data_mean_nh']
 data_southern= data_after_1950_subplot.loc[:,'data_mean_sh']
 data_global = data_after_1950_subplot.loc[:, "data_mean_global"]
-# print(data_northern)
-# plot_acf(data_northern)
-# plot_acf(data_after_1950_subplot["data_mean_sh"], lags=15)
-# plt.show()
-
-# print(data_southern)
-# plot_acf(data_southern)
-# plt.show()
 
 fig, axes = plt.subplots(2,1, figsize=(12,10))
 fig.suptitle("Autocorellation Function", fontsize=20)
@@ -88,10 +78,6 @@ axes[1].set_xlabel("Year", fontsize=12)
 axes[1].set_ylabel("ppm", fontsize=12)
 plt.subplots_adjust(hspace=0.25)
 plt.show()
-
-# plot_pacf(data_northern)
-# plot_pacf(data_southern)
-# plt.show()
 
 fig, axes = plt.subplots(2,1, figsize=(12,10))
 fig.suptitle("Partial Autocorellation Function", fontsize=20)
